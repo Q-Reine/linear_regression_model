@@ -182,7 +182,7 @@ class _PredictionPageState extends State<PredictionPage> {
   };
 
   Future<void> _predict() async {
-    // Update this URL to your deployed API endpoint
+    // Deployed API endpoint
     final url = Uri.parse("https://education-access-api.onrender.com/predict");
     List<String> errors = [];
 
@@ -230,13 +230,12 @@ class _PredictionPageState extends State<PredictionPage> {
         final data = jsonDecode(response.body);
         String accessLevel = data['access_level'];
 
-        // Build result string with all information
+       
         String resultText =
             "Predicted Access: ${data['predicted_access'].toStringAsFixed(1)} thousands\n";
         resultText += "Access Level: $accessLevel\n";
         resultText += "Description: ${data['access_description']}\n\n";
 
-        // Add African-specific information if available
         if (data['african_recommendation'] != null) {
           resultText +=
               "📋 African Recommendation:\n${data['african_recommendation']}\n\n";
@@ -247,7 +246,7 @@ class _PredictionPageState extends State<PredictionPage> {
               "🏛️ Policy Suggestion:\n${data['policy_suggestion']}\n\n";
         }
 
-        // Add European baseline for African countries
+        
         if (data['european_baseline'] != null) {
           resultText +=
               "🇪🇺 European Baseline: ${data['european_baseline'].toStringAsFixed(1)} thousands\n";
@@ -258,7 +257,7 @@ class _PredictionPageState extends State<PredictionPage> {
         setState(() {
           _result = resultText;
 
-          // Assign color based on access level
+          
           switch (accessLevel) {
             case 'Very High':
               _resultColor = Colors.green[700]!;
